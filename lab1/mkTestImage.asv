@@ -18,28 +18,28 @@ imgOut = zeros(256,256,1);
 
 for a = 1:2:256
     for b = 1:2:256
-    imgOut(a,b) = 1;
+    img(a,b) = 1;
     end
 end
 
 for c = 2:2:256
     for d = 2:2:256
-        imgOut(c,d) = 1;
+        image(c,d) = 1;
     end
 end
 
 for e = 4:8:256
     for f = 1:4
     
-    imgOut(e+f,:) = gLvl/255;
+    image(e+f,:) = gLvl/255;
     
     end
     
 end
 
-imwrite(imgOut, 'imgOut.png')
+imwrite(image, 'glvl177.png')
 
-figure(1), imshow(imgOut)
+figure(1), imshow(image)
 
 
 
