@@ -37,14 +37,35 @@ for e = 4:8:256
     
 end
 
-imwrite(imgOut, 'imgOut.png')
+imwrite(imgOut, 'test.png')
 
 figure(1), imshow(imgOut)
 
+index = 0;
+gamma = 1.8984;
+for ngl = 0:1:256
+    index = index+1;
+    if index < 256
+    
+        I(index) = 255*(ngl/255).^(gamma);
+        Iy(index) = 255*(ngl/255).^(1/gamma);
+        Is(index) = 255*(ngl/255).^(2.2);
+    end
+end
+
+x = linspace(0,255,255);
+
+figure(2)
+
+plot(x,I)
+xlabel('normalized gray level')
+ylabel('intensity')
+hold on
+plot(x,Iy)
 
 
-
-
-
+plot(x,Is)
+hold off
+legend('tested','inverse','std')
 end
 
