@@ -11,4 +11,54 @@ function imgOut = sRGBToGray(imgIn)
 
 % PLACE YOUR CODE HERE (SUBMIT THIS FILE WITH YOUR REPORT)
 
+imgIn = imread('images/7292.png');
+
+imgOut = rgb2gray(imgIn);
+
+imgOut = im2single(imgOut);
+
+M = [0.4124564 0.3575761 0.1804375; 0.2126729  0.7151522  0.0721750; 0.0193339  0.1191920  0.9503041];
+
+outim = zeros(356,536,1);
+
+for j = 1:356
+    for k = 1:length(imgIn)
+        
+       
+        R = double(imgIn(j,k,1));
+        G = double(imgIn(j,k,2));   
+        B = double(imgIn(j,k,3));  
+        
+        
+        
+        R = R/255;
+        G = G/255;
+        B = B/255;
+        
+        RGB = [R; G; B];
+        
+        XYZ = M*RGB;
+        
+        outim(j,k) = (XYZ(1)+XYZ(2)+XYZ(3)/3).^(1/1.8984);
+
+        
+    end
+    
+    
+end
+
+imwrite(imgOut, 'gsimg.png');
+
+
+outim = im2uint8(outim);
+
+figure(3)
+imshow(outim)
+
+figure(4)
+imshow(imgOut)
+
+figure(5)
+histogram(outim)
+
 end
