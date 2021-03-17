@@ -28,8 +28,8 @@ for c = 2:2:256
     end
 end
 
-for e = 4:8:256
-    for f = 1:4
+for e = 16:32:256
+    for f = 1:16
     
     imgOut(e+f,:) = gLvl/255;
     
@@ -47,9 +47,9 @@ for ngl = 0:1:256
     index = index+1;
     if index < 256
     
-        I(index) = 255*(ngl/255).^(gamma);
-        Iy(index) = 255*(ngl/255).^(1/gamma);
-        Is(index) = 255*(ngl/255).^(2.2);
+        I(index) = (ngl/255).^(gamma);
+        Iy(index) = (ngl/255).^(1/gamma);
+        Is(index) = (ngl/255).^(2.2);
     end
 end
 

@@ -26,8 +26,8 @@ for j = 1:356
         
        
         R = double(imgIn(j,k,1));
-        G = double(imgIn(j,k,2));   
-        B = double(imgIn(j,k,3));  
+        G = double(imgIn(j,k,2));  
+        B = double(imgIn(j,k,3)); 
         
         
         
@@ -39,7 +39,7 @@ for j = 1:356
         
         XYZ = M*RGB;
         
-        outim(j,k) = (XYZ(1)+XYZ(2)+XYZ(3)/3).^(1/1.8984);
+        outim(j,k) = 255*XYZ(2).^2.2; %only care about luminance and then gamma correction 
 
         
     end
@@ -47,7 +47,7 @@ for j = 1:356
     
 end
 
-imwrite(imgOut, 'gsimg.png');
+imwrite(outim, 'gsimg.png');
 
 
 outim = im2uint8(outim);
