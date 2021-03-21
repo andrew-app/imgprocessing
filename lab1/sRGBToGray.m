@@ -39,15 +39,18 @@ for j = 1:356
         
         XYZ = M*RGB;
         
-        outim(j,k) = 255*XYZ(2).^2.2; %only care about luminance and then gamma correction 
-
+        outim(j,k) = XYZ(2).^(1/1.8984); %only care about luminance and then gamma correction 
+        imgOut(j,k) = imgOut(j,k).^(1/1.8984);
         
     end
     
     
 end
 
-imwrite(outim, 'gsimg.png');
+
+%imwrite(outim, '7292_corrected.png');
+%imwrite(outim, '7292_linear.png');
+
 
 
 outim = im2uint8(outim);
