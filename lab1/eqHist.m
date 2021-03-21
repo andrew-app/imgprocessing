@@ -31,8 +31,6 @@ for a = 0:255
     
 end
 
-figure(1)
-imhist(imgIn)
 
 %transform function
 
@@ -46,10 +44,10 @@ end
 
 heq = histeq(imgIn,8);
 
-figure(2)
+figure(1)
 histogram(imgIn)
 
-figure(3)
+figure(2)
 imshow(imgIn)
 
 
@@ -63,14 +61,17 @@ for m = 1:356
         end
     end
 end
-figure(4)
+
+imgout = im2uint8(imgIn);
+imwrite(imgout, '7292_eq.png');
+
+figure(3)
 imshow(imgIn)
 
-figure(5)
-histogram(imgIn)
 
-figure(6)
-imshow(heq)
+
+figure(4)
+histogram(imgIn)
 
 end
 
