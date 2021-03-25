@@ -25,6 +25,7 @@ end
 for c = 2:2:256
     for d = 2:2:256
         imgOut(c,d) = 1;
+    
     end
 end
 

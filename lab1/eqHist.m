@@ -11,8 +11,9 @@ function imgOut = eqHist(imgIn,nLvls)
 %   imgOut - grayscale output image (NxMx1)
 
 % PLACE YOUR CODE HERE (SUBMIT THIS FILE WITH YOUR REPORT)
+
 imgIn = imread('gsimg.png');
-ht = zeros(256,3,1);
+ht = zeros(256,2,1);
 for a = 0:255
     count = 0;
     for i = 1:356
@@ -45,8 +46,10 @@ end
 
 figure(2)
 plot(ht(:,1),ht(:,3))
-
-disp(ht)
+figure(3);
+histogram(ht)
+imgOut = ht(imgIn+1);
+%imshow(imgOut)
 end
 
 

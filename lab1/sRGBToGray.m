@@ -20,7 +20,7 @@ imgOut = im2single(imgOut);
 M = [0.4124564 0.3575761 0.1804375; 0.2126729  0.7151522  0.0721750; 0.0193339  0.1191920  0.9503041];
 
 outim = zeros(356,536,1);
-
+gammaim = zeros(356,536,1);
 for j = 1:356
     for k = 1:length(imgIn)
         
@@ -39,26 +39,32 @@ for j = 1:356
         
         XYZ = M*RGB;
         
-        outim(j,k) = 255*XYZ(2).^2.2; %only care about luminance and then gamma correction 
-
+        gammaim(j,k) = (XYZ(2)).^(1/1.8984); %only care about luminance and then gamma correction 
+        
+        outim = XYZ(2);
         
     end
     
     
 end
 
-imwrite(outim, 'gsimg.png');
 
 
 outim = im2uint8(outim);
 
+imwrite(gammaim, 'gsimg.png');
+
+
+
+
 figure(3)
-imshow(outim)
+imshow(gammaim)
 
 figure(4)
 imshow(imgOut)
 
 figure(5)
-histogram(outim)
-
+histogram(gammaim)
+xlabel('Intensity')
+ylabel('Count')
 end
