@@ -12,9 +12,14 @@ function imgOut = eqHist(imgIn,nLvls)
 
 % PLACE YOUR CODE HERE (SUBMIT THIS FILE WITH YOUR REPORT)
 
+<<<<<<< HEAD
 nLvls = 8;
 imgIn = imread('7292_linear.png');
 ht = zeros(256,4,1);
+=======
+imgIn = imread('gsimg.png');
+ht = zeros(256,2,1);
+>>>>>>> 0ec94a03cdf17ededccd4c67236d1132ff52c465
 for a = 0:255
     count = 0;
     for i = 1:356
@@ -48,6 +53,7 @@ figure(1)
 histogram(imgIn)
 
 figure(2)
+<<<<<<< HEAD
 imshow(imgIn)
 
 
@@ -73,6 +79,13 @@ imshow(imgIn)
 figure(4)
 histogram(imgIn)
 
+=======
+plot(ht(:,1),ht(:,3))
+figure(3);
+histogram(ht)
+imgOut = ht(imgIn+1);
+%imshow(imgOut)
+>>>>>>> 0ec94a03cdf17ededccd4c67236d1132ff52c465
 end
 
 
