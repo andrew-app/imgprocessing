@@ -14,57 +14,58 @@ function [x,y] = getConnected(x0,y0,img,T)
 %   y - y-coordinates of all connected 4-neighbours of p
 
 % PLACE YOUR CODE HERE (SUBMIT THIS FILE WITH YOUR REPORT)
-x0 = 190;
+x0 = 50;
 
-y0 = 180;
+y0 = 283;
 
 img = imread('images/iceberg.png');
 
-T = 2;
+img = transpose(img);
+
+T = 1;
 
 xc = mod(x0,1);
 yc = mod(y0,1);
 
 
-if x0 > size(img,1) || x0 < 1 || xc ~= 0
+if x0 > size(img,2) || x0 < 1 || xc ~= 0
     disp('Error. Outside Range of Pixel X-values or not an integer.')
     return
 end
 
-if y0 > size(img,2) || y0 < 1 || yc ~= 0
+if y0 > size(img,1) || y0 < 1 || yc ~= 0
     disp('Error. Outside Range of Pixel Y-values or not an integer.')
     return
 end
 
-if y0 == 1
-    if x0 == 1
+if x0 == 1
+    if y0 == 1
         
         N = {[x0+1,y0],[x0,y0+1]};
         
-    elseif x0 == size(img,1)
-         N = {[x0-1,y0],[x0,y0+1]};
+    elseif y0 == size(img,1)
+        N = {[x0-1,y0],[x0,y0+1]};
     else
         N = {[x0+1,y0],[x0,y0+1],[x0,y0-1]};
     end
     
-elseif x0 == 1
+
     
-    if y0 == size(img,2)
-        N = {[x0+1,y0],[x0,y0-1]};
-    
-    else    
-        N = {[x0+1,y0],[x0,y0-1],[x0,y0+1]};
-    end
-    
-elseif x0 == size(img,1)
+elseif x0 == size(img,2)
     if y0 == 1
         N = {[x0-1,y0],[x0,y0+1]};
-    elseif y0 == size(img,2)
+    elseif y0 == size(img,1)
         N = {[x0-1,y0],[x0,y0-1]};
     else
         N = {[x0-1,y0],[x0,y0+1],[x0,y0-1]};
     end
-       
+elseif y0 == 1
+    
+    
+    N = {[x0-1,y0],[x0,y0+1],[x0+1,y0]};
+elseif y0 == size(img,1)
+    
+    N = {[x0-1,y0],[x0,y0-1],[x0+1,y0]};
 else
     N = {[x0+1,y0],[x0-1,y0],[x0,y0+1],[x0,y0-1]};
 end
@@ -74,9 +75,9 @@ for i = 1:length(N)
     
     q = cell2mat(q);
 
-    Vq = img(q(1),q(2));
+    Vq = img(q(2),q(1));
 
-    Vp = img(x0,y0);
+    Vp = img(y0,x0);
 
     diff =  abs(int32(Vq) - int32(Vp));
     
