@@ -14,25 +14,25 @@ function [x,y] = getConnected(x0,y0,img,T)
 %   y - y-coordinates of all connected 4-neighbours of p
 
 % PLACE YOUR CODE HERE (SUBMIT THIS FILE WITH YOUR REPORT)
-x0 = 27;
+x0 = 190;
 
-y0 = 15;
+y0 = 180;
 
 img = imread('images/iceberg.png');
 
-T = 15;
+T = 2;
 
 xc = mod(x0,1);
 yc = mod(y0,1);
 
 
 if x0 > size(img,1) || x0 < 1 || xc ~= 0
-    disp('Error. Outside Range of Pixel X - Coordinates or not an integer value.')
+    disp('Error. Outside Range of Pixel X-values or not an integer.')
     return
 end
 
 if y0 > size(img,2) || y0 < 1 || yc ~= 0
-    disp('Error. Outside Range of Pixel Y - Coordinates or not an integer value.')
+    disp('Error. Outside Range of Pixel Y-values or not an integer.')
     return
 end
 
@@ -89,6 +89,7 @@ end
 if isempty(C)
     disp("No Connected Pixels")
 else
+    disp("Connected neighbours at: ")
     disp(C)
 end
 
