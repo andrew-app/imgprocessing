@@ -15,4 +15,12 @@ function [x,y] = getConnectedSet(x0,y0,img,T)
 
 % PLACE YOUR CODE HERE (SUBMIT THIS FILE WITH YOUR REPORT)
 
+x0 = 
+
+y0 = 
+
+img = imread('images/iceberg.png');
+
+T = 
+
 end
