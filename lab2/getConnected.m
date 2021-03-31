@@ -20,7 +20,7 @@ y0 = 15;
 
 img = imread('images/iceberg.png');
 
-T = 1;
+T = 15;
 
 xc = mod(x0,1);
 yc = mod(y0,1);
