@@ -1,4 +1,4 @@
-function [x,y] = getConnectedSet(x0,y0,img,T)
+function R = getConnectedSet(x0,y0,img,T)
 % Get the connected set for pixel p at (x0,y0) and threshold T.
 %
 % Inputs:
@@ -15,40 +15,48 @@ function [x,y] = getConnectedSet(x0,y0,img,T)
 
 % PLACE YOUR CODE HERE (SUBMIT THIS FILE WITH YOUR REPORT)
 
-x0 = 190;
-
-y0 = 86;
 
 img = imread('images/iceberg.png');
 
-
 T = 2;
 
-S = [];
-
+x0 = 190;
+y0 = 180;
+R = [];
+L = [];
 imgOut = ones(267,283,1);
 
+a = img(1,175);
 
 for i = 1:size(img,1)
     for j = 1:size(img,2)
-        if img(i,j)-img(x0,y0) <= T
+        if abs(int32(img(i,j))-int32(img(y0,x0))) <= T
+
+            c = {[i,j]};
+
+            R = [R,c];
+
+            d = {[j,i]};
             
-                
-            C = {[i,j]};
-            S = [S, C];
+            L = [L,d];
             imgOut(i,j) = 0;
-            
-        
         end
-        
-            
+
     end
 end
 
+    
 
-for k = 1:length(S)
 
-    p = cell2mat(S(k));
+figure(1)
+
+imshow(imgOut)
+
+imwrite(imgOut,'unfiltered.png')
+
+for k = 1:length(R)
+
+    p = cell2mat(R(k));
     
     if p(1) == 1 
         if p(2) == 1
@@ -92,14 +100,16 @@ for k = 1:length(S)
         imgOut(p(1),p(2)) = 1;
     end
     
+ 
+    
 end
     
 
 
-figure(1)
+figure(2)
 imshow(imgOut)
 
-figure(2)
+figure(3)
 imshow(img)
 
 imwrite(imgOut,'setT2.png')
