@@ -74,15 +74,18 @@ dft = fft2(img);
 
 
 
-vdft = abs(dft); % visualisation of magnitude from discrete fourier transform ignores complex numbers
+vdft = abs(dft);
 
 
 
-vdft = vdft./255; 
+vdft = vdft./255; % visualisation of magnitude from  discrete fourier transform 
 
 dft = dft./255;
 
 vdft = fftshift(vdft);
+
+dft = fftshift(dft);
+
 
 
 
@@ -97,6 +100,5 @@ imshow(idft)
 
 
 
-%% 
 
 
