@@ -97,6 +97,21 @@ imshow(idft)
 
 
 
-%% 
+%% image filter using low pass domain filter
+
+tstimg = imread('images/testimg.jpg');
+
+tstimg = rgb2gray(tstimg);
+
+dft_tst = fft2(tstimg);
+
+lpf_tst = fspecial('gaussian', [size(tstimg,1),size(tstimg,2)], 5);
+
+
+lpf_tst = lpf_tst.*255;
+
+
+figure(8)
+imshow(lpf_tst)
 
 
