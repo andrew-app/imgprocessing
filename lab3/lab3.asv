@@ -6,7 +6,7 @@ img = double(img)./255;
 %% low pass filter
 
 
-lpf = fspecial('gaussian', [24,24],4);
+lpf = fspecial('gaussian', [64,64],4);
 
 
 
@@ -39,19 +39,18 @@ imshow(fimg_high)
 img_rz = imresize(img,0.5,'bicubic');
 
 fimg_rz = imfilter(img_rz,lpf);
-imwrite(fimg_rz,'scaledlp1.png')
-figure()
+figure(9)
 
 imshow(fimg_rz)
 fimg_rz = imresize(fimg_rz,2,'bicubic');
 
-fimg_rz = uint8(fimg_rz.*255);
-figure()
+fimg_rz = 
+figure(10)
 
 imshow(fimg_rz)
 
 
-
+imwrite(fimg_rz,'scaledlp.png')
 
 %% Shading correction
 
@@ -127,37 +126,36 @@ idft = ifft2(dft);
 idft = idft.*255;
 figure(7)
 imshow(idft)
-
-
-
-%% image filter using low pass domain filter
-
-imgin = imread('images/testimg.jpg');
-
-tstimg = rgb2gray(imgin);
-
-tstimg = double(tstimg);
-
-dft_tst = fft2(tstimg);
-
-
-dft_tst = fftshift(dft_tst);
-
-lpf_tst = fspecial('gaussian', [size(tstimg,1),size(tstimg,2)], 5);
-
-lpf_tst = fftshift(lpf_tst);
-
-G = imfilter(dft_tst,lpf_tst);
-
-oimg = ifft2(G);
-
-oimg = abs(oimg);
-
-figure(8)
-imshow(oimg)
-
-figure(9)
-imshow(imgin)
-
-
-imwrite(oimg,'ftestlp5.png')
+% 
+% 
+% 
+% %% image filter using low pass domain filter
+% 
+% imgin = imread('images/testimg.jpg');
+% 
+% tstimg = rgb2gray(imgin);
+% 
+% tstimg = double(tstimg);
+% 
+% dft_tst = fft2(tstimg);
+% 
+% 
+% dft_tst = fftshift(dft_tst);
+% 
+% lpf_tst = fspecial('gaussian', [size(tstimg,1),size(tstimg,2)], 2);
+% 
+% lpf_tst = fftshift(lpf_tst);
+% 
+% G = imfilter(dft_tst,lpf_tst);
+% 
+% oimg = ifft2(G);
+% 
+% oimg = abs(oimg);
+% 
+% figure(8)
+% imshow(oimg)
+% 
+% figure(9)
+% imshow(imgin)
+% 
+% 
