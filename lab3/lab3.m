@@ -33,6 +33,8 @@ imshow(fimg_high)
 %% Image Scaling
 
 
+
+
 %% Shading correction
 
 simg = imread('images/checkerboard.png');
@@ -99,19 +101,31 @@ imshow(idft)
 
 %% image filter using low pass domain filter
 
-tstimg = imread('images/testimg.jpg');
+imgin = imread('images/testimg.jpg');
 
-tstimg = rgb2gray(tstimg);
+tstimg = rgb2gray(imgin);
+
+tstimg = double(tstimg);
 
 dft_tst = fft2(tstimg);
 
-lpf_tst = fspecial('gaussian', [size(tstimg,1),size(tstimg,2)], 5);
 
+dft_tst = fftshift(dft_tst);
 
-lpf_tst = lpf_tst.*255;
+lpf_tst = fspecial('gaussian', [size(tstimg,1),size(tstimg,2)], 2);
 
+lpf_tst = fftshift(lpf_tst);
+
+G = imfilter(dft_tst,lpf_tst);
+
+oimg = ifft2(G);
+
+oimg = abs(oimg);
 
 figure(8)
-imshow(lpf_tst)
+imshow(oimg)
+
+figure(9)
+imshow(imgin)
 
 
