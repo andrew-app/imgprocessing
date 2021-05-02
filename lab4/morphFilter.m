@@ -11,22 +11,26 @@ function imgOut = morphFilter(imgIn)
 
 % PLACE YOUR CODE HERE (SUBMIT THIS FILE WITH YOUR REPORT)
 
-imgIn = imread('images/thumbprint.png');
+imgInput = imread('images/thumbprint.png');
 
 
 se = strel('disk', 2,0);
 
 se2 = strel('disk', 1,0);
 
-imgOut = imerode(imgIn,se2);
+imgO = imerode(imgInput,se2);
 
-imgOut = imdilate(imgOut,se);
+imgO = imdilate(imgO,se);
 
 
 
 
 figure(1)
-imshow(imgOut)
+imshow(imgO)
 
 figure(2)
-imshow(imgIn)
+imshow(imgInput)
+
+imwrite(imgO, 'thumbprint_filtered.png')
+
+
