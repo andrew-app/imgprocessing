@@ -13,28 +13,63 @@ function s = getSkeleton(img)
 
 imgIn = imread('images/three.png');
 
+inimg = imbinarize(imgIn);
 
-imgO = imbinarize(imgIn);
 
-for i = 1:size(imgO,1)
-    for j = 1:size(imgO,2)
-        if imgO(i,j) == 1
-            imgO(i,j) = 0;
-        elseif imgO(i,j) == 0
-            imgO(i,j) = 1;
+
+for i = 1:size(inimg,1)
+    for j = 1:size(inimg,2)
+        if inimg(i,j) == 1
+            inimg(i,j) = 0;
+        else
+            inimg(i,j) = 1;
         end
     end
 end
 
-se = strel('disk', 2,0);
+tst = bwmorph(inimg,'skel');
 
-for i = 1:2
-    imgO = imerode(imgO,se);
+
+A = inimg;
+
+B = strel('disk', 1,0);
+
+k = 0;
+skel = zeros(size(inimg,1),size(inimg,2));
+
+skel = imbinarize(skel);
+
+while 1
+    inimg = imerode(A,B);
+    temp = imdilate(inimg,B);
+    
+    
+    for i = 1:size(inimg,1)
+        for j = 1:size(inimg,2)
+            temp(i,j) = A(i,j) - temp(i,j);
+            skel(i,j) = bitor(skel(i,j),temp(i,j));
+        end
+    end    
+    
+    A = inimg; %eroded image becomes new binary image A 
+    
+
+    
+    if nnz(A) == 0 %check for null set
+        break
+    
+    else
+        k = k+1; %K is max iterations to achieve null set in A
+    end
+    
 end
 
-figure(1)
-imshow(imgIn)
-    
-figure(2)
-imshow(imgO)
 
+
+figure(1)
+imshow(skel)
+
+disp(k)
+
+figure(2)
+imshow(tst)
