@@ -14,53 +14,58 @@ imin = imread('images/pills2.png');
 
 imin = imbinarize(imin);
 
-tst = imclearborder(imin);
+marker_img = zeros(size(imin,1),size(imin,2));
 
-B = strel('disk', 1,0);
+[r,c] = size(imin);
 
-imin = imdilate(imin,B);
-%% top frame
+%% Marker Image
 
-for i = 1:size(imin,1)
-    if imin(1,i) == 1
-        j = 1;
-        while 1
-            if imin(j,i) == 1 || imin(j+1,i) == 1
-                imin(j,i) = 0;
-                j = j + 1;
-     
-            else
-                break
-            end
+%First get mask image
+for i = 1:size(imin,1) 
+    for j = 1:size(imin,2)
+        if (i == r || j == c || i == 1 || j == 1) %Make pixels around border 1 everything else 0
+            marker_img(i,j) = imin(i,j);
         end
-    
     end
-    
 end
 
-%% left frame
+B = strel('square',3);
 
-for  i = 1:size(imin,2)
-     if imin(i,1) == 1
+marker_img = imbinarize(marker_img);
+
+Rimg = zeros(size(imin,1),size(imin,2));
+
+k = 0;
+while 1
+    dilimg = imdilate(marker_img,B);
+    temp = Rimg;
+    for i = 1:size(imin,1) 
+        for j = 1:size(imin,2)
+            Rimg(i,j) = bitand(dilimg(i,j),imin(i,j));
+        end
+    end
+    
+    va = nnz(Rimg);
+    vb = nnz(temp);
+    if va == vb
+        break
         
-        j = 1;
-        while 1
-            if imin(i,j) == 1 || imin(i,j+1) == 1 || imin(i-1,j+1) == 1 || imin(i-1,j) == 1
-                imin(i,j) = 0;
-                j = j + 1;
-     
-            else
-                break
-            end
-        end
-    
+    else
+        marker_img = Rimg;
+        k = k+1;
     end
+    
 end
 
+
+imOut = imin-Rimg;
+
+
+fprintf('k= %d \n',k)
 
 
 figure(1)
-imshow(tst)
+imshow(imOut)
 
 figure(2)
 imshow(imin)
