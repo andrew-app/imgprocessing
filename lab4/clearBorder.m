@@ -45,8 +45,8 @@ while 1
         end
     end
     
-    va = nnz(Rimg);
-    vb = nnz(temp);
+    va = nnz(Rimg); % current iteration
+    vb = nnz(temp); % previous iteration
     if va == vb
         break
         
