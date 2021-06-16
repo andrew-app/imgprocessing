@@ -7,7 +7,7 @@ S = [];
 
 
 
-for i = 1:size(img,1)
+parfor i = 1:size(img,1)
     for j = 1:size(img,2)
         cmp = abs(int32(img(i,j))-int32(img(y0,x0)));
         if cmp <= T
